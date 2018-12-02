@@ -9,7 +9,7 @@ public class App {
 
 	public static void main(String[] args) {
 		
-		//Employee emp1 = new Employee(0,"Erwin",32500);
+		Employee emp1 = new Employee(0,"Riya",32500);
 		//Employee emp2 = new Employee(0,"Bob",87500);
 		
 		//System.out.println(emp1);  //System.out.println(emp1.toString());
@@ -29,10 +29,12 @@ public class App {
 		//helper.updateEmployee(emp);
 		//helper.deleteEmployee(4);
 		
-		ArrayList<Employee> employees = helper.fetchEmployees();
+		/*ArrayList<Employee> employees = helper.fetchEmployees();
 		for(Employee e : employees){
 			System.out.println(e);
-		}
+		}*/
+		
+		helper.executeProcedure(emp1);
 		
 		// 5. Close Connection
 		helper.closeConnection();

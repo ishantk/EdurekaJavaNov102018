@@ -1,9 +1,11 @@
 package co.edureka.db;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -16,6 +18,9 @@ public class JDBCHelper {
 	// To Execute SQL Statament
 	Statement stmt;
 	PreparedStatement pStmt;
+	
+	// To Execute Stored Procedure
+	CallableStatement cStmt;
 	
 	// 1. Load the Driver
 	public JDBCHelper() {
@@ -158,6 +163,23 @@ public class JDBCHelper {
 			System.out.println("Some Exception: "+e);
 		}
 		return employees;
+	}
+	
+	public void executeProcedure(Employee emp){
+		try {
+			
+			String sql = "{ call addEmployee(?,?) }";
+			cStmt = con.prepareCall(sql);
+			cStmt.setString(1, emp.name);
+			cStmt.setInt(2, emp.salary);
+			
+			cStmt.execute();
+			
+			System.out.println(">> Prodedure Executed");
+			
+		} catch (SQLException e) { // Exception e
+			System.out.println("Some Exception: "+e);
+		}
 	}
 	
 	//5. Close Connection
