@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import co.edureka.model.Employee;
 
@@ -165,6 +166,36 @@ public class JDBCHelper {
 		return employees;
 	}
 	
+	public void processTransaction(){
+
+		try {
+			
+			String sql1 = "delete from Employee where id = 3";
+			String sql2 = "delete from Employee where eid = 6";
+			
+			stmt = con.createStatement();
+			con.setAutoCommit(false);
+			
+			// Creating a Batch
+			stmt.addBatch(sql1);
+			stmt.addBatch(sql2);
+			
+			stmt.executeBatch();
+			con.commit(); // Make Sure the batch is executed as a transaction
+			System.out.println("==Transaction Processed==");
+		} catch (Exception e) {
+			
+			System.out.println("Some Exception: "+e);
+			try {
+				con.rollback();
+				System.out.println("DB Changes Roll Backed !!");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			} 
+		}
+	}
+	
+	
 	public void executeProcedure(Employee emp){
 		try {
 			
@@ -176,9 +207,10 @@ public class JDBCHelper {
 			cStmt.execute();
 			
 			System.out.println(">> Prodedure Executed");
-			
+						
 		} catch (SQLException e) { // Exception e
 			System.out.println("Some Exception: "+e);
+			//e.getErrorCode() -> Error Codes and Take decisions !!
 		}
 	}
 	
