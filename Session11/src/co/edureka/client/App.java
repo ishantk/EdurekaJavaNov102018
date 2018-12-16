@@ -43,15 +43,15 @@ public class App {
 		
 		try {
 
-			//config = new Configuration();
-			//config.configure(); // Reads/Parses hibernate.cfg.xml file !!
+			config = new Configuration();
+			config.configure(); // Reads/Parses hibernate.cfg.xml file !!
 			//config.configure(anyname.xml); // Reads/Parses anyname.xml if hibernate.cfg.xml file is renamed to anyname.xml !!
 			
-			aConfig = new AnnotationConfiguration();
-			aConfig.configure();
+			//aConfig = new AnnotationConfiguration();
+			//aConfig.configure();
 			
-			//factory = config.buildSessionFactory();
-			factory = aConfig.buildSessionFactory();
+			factory = config.buildSessionFactory();
+			//factory = aConfig.buildSessionFactory();
 			
 			session = factory.openSession(); // Creating Connection with DB
 			
@@ -100,10 +100,25 @@ public class App {
 			}*/
 			
 			//Batch Processing
-			for(int i=1;i<=100;i++){
+			/*for(int i=1;i<=100;i++){
 				Employee emp = new Employee(null, "Emp"+i, "emp"+i+"@example.com", 20000+i, "Sales"); // 100 employee objects will be created
 				session.save(emp); // save all 100 objects in session
-			}
+			}*/
+			
+			// Cache Demo
+			// Retrieved 2 rows as objects !!
+			Employee emp1 = (Employee)session.get(Employee.class, 3);
+			Employee emp2 = (Employee)session.get(Employee.class, 4);
+			System.out.println(emp1);
+			System.out.println(emp2);
+			
+			System.out.println(">> Re-Reading the same data with id 3 and 4");
+			System.out.println(">> Now Read from Cache");
+			
+			Employee emp3 = (Employee)session.get(Employee.class, 3);
+			Employee emp4 = (Employee)session.get(Employee.class, 4);
+			System.out.println(emp3);
+			System.out.println(emp4);
 			
 			transaction.commit(); // A batch of 100 Employees shallbe saved together now !!
 			
@@ -111,6 +126,9 @@ public class App {
 			
 		} catch (Exception e) {
 			System.out.println(">> Some Exception: "+e);
+		}finally{
+			session.close(); // close will release the memory resources and will destroy the cache
+			factory.close();
 		}
 	}
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    
+    <!-- Configuration of Object in XML File -->
+   
+   <!--  <bean id="aRef" class="co.edureka.bean.Address">
+       <property name="adrsLine" value="Pristine Magnum"/>
+       <property name="city" value="Bengaluru"/>
+       <property name="zipCode" value="520001"/>
+   </bean>
+   
+   <bean id="pRef" class="co.edureka.bean.Person">
+       <property name="pid" value="1001"/>
+       <property name="email" value="john@example.com"/>
+       <property name="phone" value="+91 99999 88888"/>
+       <constructor-arg name="address" ref="aRef"/>  Constructor Injection
+       <property name="address" ref="aRef"/> Setter Injection
+       <property name="qualifications">      Setter Injection for List (Collection)
+       		<list>
+       			<value>B.Tech</value>
+       			<value>M.Tech</value>
+       			<value>MBA</value>
+       		</list>
+       </property>
+   </bean> -->
+   
+   <context:annotation-config/>
+   
+   <bean id="ca" class="co.edureka.bean.CA"/>
+   <bean id="cb" class="co.edureka.bean.CB"/>
+   
+   
+   
+    <!-- <constructor-arg name="ca" ref="ca"/> --> <!-- Constructor Injection -->
+   	<!-- <property name="ca" ref="ca"/> -->  				   <!-- Setter Injection -->
+   <!-- </bean> -->
+
+</beans>
